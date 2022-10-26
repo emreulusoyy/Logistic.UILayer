@@ -29,10 +29,12 @@ nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
 /*--login start here--*/
- body{
+body {
 	font-family: 'Poppins', sans-serif;
-   font-size: 100%;
-   background-color: #C04273; 
+	font-size: 100%;
+	background: url('/Templates/web/css/transportation-logistics-container-cargo-ship-cargo-plane-3d-rendering-illustration_37416-487 (1).png') no-repeat center center fixed;
+	;
+	
 }
 a {
   text-decoration: none;
@@ -49,6 +51,9 @@ h1 {
   font-size: 2.8em;
   color: #fff;
   margin-top: 2em ;
+}
+.login {
+	background-color:aqua!important; 
 }
 .login h2{
 	font-size: 0.8em;

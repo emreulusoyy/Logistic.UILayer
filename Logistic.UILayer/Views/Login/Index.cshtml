@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@{
+    Layout = null;
+}
+
+
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+
+<!DOCTYPE HTML>
+<html>
+@Html.Partial("/Views/Register/PartialHead.cshtml")
+<body>
+
+
+    <h1>Admin Giriş Formu Formu</h1>
+
+    <div class="login" style="background-color:aqua">
+        <span class="log-close"> </span>
+        <div class="login-bottom">
+            <form method="post">
+
+                <div class="text">
+                    <input type="text" placeholder="Mail adresinizi giriniz" required="" name="CustomerMail" />
+                    <div class="clear"> </div>
+                </div>
+
+                <div class="text">
+                    <input type="password" placeholder="Şifrenizi giriniz giriniz" required="" name="CustomerPassword" />
+                    <div class="clear"> </div>
+                </div>
+
+               
+
+                <div class="remember">
+
+                    <div class="send">
+                        <input type="submit" value="Giriş Yap">
+                    </div>
+                    <div class="clear"> </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="copy-right">
+        <p>© @DateTime.Now.Year . Tüm hakları saklıdır ></p>
+    </div>
+</body>
+</html>
+

@@ -14,11 +14,20 @@ namespace Logistic.UILayer.Models
     
     public partial class TblCustomer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TblCustomer()
+        {
+            this.TblOrder = new HashSet<TblOrder>();
+        }
+    
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string CustomerSurname { get; set; }
         public string CustomerPhone { get; set; }
         public string CustomerMail { get; set; }
         public string CustomerPassword { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TblOrder> TblOrder { get; set; }
     }
 }

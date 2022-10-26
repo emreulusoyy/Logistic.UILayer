@@ -11,7 +11,7 @@ namespace Logistic.UILayer.Controllers
     public class CityController : Controller
     {
         DBLogisticEntities db = new DBLogisticEntities();
-        public ActionResult Index()
+        public ActionResult Index()//sayfa açıldığındaki event
         {
            var values = db.TblCity.ToList();
             return View(values);
@@ -33,9 +33,9 @@ namespace Logistic.UILayer.Controllers
         public ActionResult DeleteCity(int id)
         {
             var values = db.TblCity.Find(id);
-            db.TblCity.Remove(values);
+            db.TblCity.Remove(values); 
             db.SaveChanges();                   //Sqlde de kaydet
-            return RedirectToAction("Index");
+            return RedirectToAction("Index");   
         }
         [HttpGet]
         public ActionResult UpdateCity(int id)
@@ -45,10 +45,10 @@ namespace Logistic.UILayer.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateCity(TblCity p)
+        public ActionResult UpdateCity(TblCity p)   //Güncelleyeceğim değer
         {
-            var values = db.TblCity.Find(p.CityID);
-            values.CityName = p.CityName; 
+            var values = db.TblCity.Find(p.CityID); //
+            values.CityName = p.CityName;  //Yazacağımız değeri giriyoruz
             db.SaveChanges();
             return RedirectToAction("Index");
         }

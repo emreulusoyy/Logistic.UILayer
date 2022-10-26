@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Outbox";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+
+<h2>Giden Kutusu</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Alıcı</th>
+        <th>Konu</th>
+        <th>Tarih</th>
+        <th>Sil</th>
+        <th>Mesajı Aç</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.MessageID</td>
+            <td>@item.SenderName</td>
+            <td>@item.MEssageSubject</td>
+            <td>@item.MessageDate</td>
+            <td><a href="#" class="btn btn-danger">Sil</a></td>
+            <td><a href="#" class="btn btn-warning">Mesajı Aç</a></td>
+        </tr>
+    }
+</table>

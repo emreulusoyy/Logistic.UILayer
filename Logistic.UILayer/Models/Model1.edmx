@@ -31,10 +31,96 @@
           <Property Name="CustomerMail" Type="nvarchar" MaxLength="50" />
           <Property Name="CustomerPassword" Type="nvarchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="TblMessage">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MessageSender" Type="nvarchar" MaxLength="50" />
+          <Property Name="MessageReciver" Type="nvarchar" MaxLength="50" />
+          <Property Name="MEssageSubject" Type="nvarchar" MaxLength="50" />
+          <Property Name="MessageConcent" Type="nvarchar(max)" />
+          <Property Name="MessageDate" Type="date" />
+          <Property Name="SenderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReciverName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TblOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderCustomer" Type="int" />
+          <Property Name="FromCity" Type="int" />
+          <Property Name="ArrivalCity" Type="int" />
+          <Property Name="OrderProduct" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderSize" Type="nvarchar" MaxLength="20" />
+          <Property Name="OrderPrice" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OrderDate" Type="smalldatetime" />
+        </EntityType>
+        <EntityType Name="TblTestimonial">
+          <Key>
+            <PropertyRef Name="TestimonialID" />
+          </Key>
+          <Property Name="TestimonialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar" MaxLength="250" />
+          <Property Name="TestimonialContent" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_TblOrder_TblCity">
+          <End Role="TblCity" Type="Self.TblCity" Multiplicity="0..1" />
+          <End Role="TblOrder" Type="Self.TblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCity">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TblOrder">
+              <PropertyRef Name="FromCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblOrder_TblCity1">
+          <End Role="TblCity" Type="Self.TblCity" Multiplicity="0..1" />
+          <End Role="TblOrder" Type="Self.TblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCity">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TblOrder">
+              <PropertyRef Name="ArrivalCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblOrder_TblCustomer">
+          <End Role="TblCustomer" Type="Self.TblCustomer" Multiplicity="0..1" />
+          <End Role="TblOrder" Type="Self.TblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCustomer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="TblOrder">
+              <PropertyRef Name="OrderCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DBLogisticModelStoreContainer">
           <EntitySet Name="TblCategory" EntityType="Self.TblCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblCity" EntityType="Self.TblCity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TblCustomer" EntityType="Self.TblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblMessage" EntityType="Self.TblMessage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblOrder" EntityType="Self.TblOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TblTestimonial" EntityType="Self.TblTestimonial" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TblOrder_TblCity" Association="Self.FK_TblOrder_TblCity">
+            <End Role="TblCity" EntitySet="TblCity" />
+            <End Role="TblOrder" EntitySet="TblOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblOrder_TblCity1" Association="Self.FK_TblOrder_TblCity1">
+            <End Role="TblCity" EntitySet="TblCity" />
+            <End Role="TblOrder" EntitySet="TblOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblOrder_TblCustomer" Association="Self.FK_TblOrder_TblCustomer">
+            <End Role="TblCustomer" EntitySet="TblCustomer" />
+            <End Role="TblOrder" EntitySet="TblOrder" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -58,11 +144,27 @@
           <Property Name="CustomerPhone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="CustomerMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CustomerPassword" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblOrder" Relationship="DBLogisticModel.FK_TblOrder_TblCustomer" FromRole="TblCustomer" ToRole="TblOrder" />
         </EntityType>
         <EntityContainer Name="DBLogisticEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="TblCategory" EntityType="Self.TblCategory" />
           <EntitySet Name="TblCustomer" EntityType="Self.TblCustomer" />
           <EntitySet Name="TblCity" EntityType="DBLogisticModel.TblCity" />
+          <EntitySet Name="TblOrder" EntityType="DBLogisticModel.TblOrder" />
+          <AssociationSet Name="FK_TblOrder_TblCity" Association="DBLogisticModel.FK_TblOrder_TblCity">
+            <End Role="TblCity" EntitySet="TblCity" />
+            <End Role="TblOrder" EntitySet="TblOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblOrder_TblCity1" Association="DBLogisticModel.FK_TblOrder_TblCity1">
+            <End Role="TblCity" EntitySet="TblCity" />
+            <End Role="TblOrder" EntitySet="TblOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TblOrder_TblCustomer" Association="DBLogisticModel.FK_TblOrder_TblCustomer">
+            <End Role="TblCustomer" EntitySet="TblCustomer" />
+            <End Role="TblOrder" EntitySet="TblOrder" />
+          </AssociationSet>
+          <EntitySet Name="TblTestimonial" EntityType="DBLogisticModel.TblTestimonial" />
+          <EntitySet Name="TblMessage" EntityType="DBLogisticModel.TblMessage" />
         </EntityContainer>
         <EntityType Name="TblCity">
           <Key>
@@ -70,6 +172,82 @@
           </Key>
           <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CityName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TblOrder" Relationship="DBLogisticModel.FK_TblOrder_TblCity" FromRole="TblCity" ToRole="TblOrder" />
+          <NavigationProperty Name="TblOrder1" Relationship="DBLogisticModel.FK_TblOrder_TblCity1" FromRole="TblCity" ToRole="TblOrder" />
+        </EntityType>
+        <EntityType Name="TblOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderCustomer" Type="Int32" />
+          <Property Name="FromCity" Type="Int32" />
+          <Property Name="ArrivalCity" Type="Int32" />
+          <Property Name="OrderProduct" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrderSize" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="OrderPrice" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OrderDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="TblCity" Relationship="DBLogisticModel.FK_TblOrder_TblCity" FromRole="TblOrder" ToRole="TblCity" />
+          <NavigationProperty Name="TblCity1" Relationship="DBLogisticModel.FK_TblOrder_TblCity1" FromRole="TblOrder" ToRole="TblCity" />
+          <NavigationProperty Name="TblCustomer" Relationship="DBLogisticModel.FK_TblOrder_TblCustomer" FromRole="TblOrder" ToRole="TblCustomer" />
+        </EntityType>
+        <Association Name="FK_TblOrder_TblCity">
+          <End Type="DBLogisticModel.TblCity" Role="TblCity" Multiplicity="0..1" />
+          <End Type="DBLogisticModel.TblOrder" Role="TblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCity">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TblOrder">
+              <PropertyRef Name="FromCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblOrder_TblCity1">
+          <End Type="DBLogisticModel.TblCity" Role="TblCity" Multiplicity="0..1" />
+          <End Type="DBLogisticModel.TblOrder" Role="TblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCity">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="TblOrder">
+              <PropertyRef Name="ArrivalCity" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TblOrder_TblCustomer">
+          <End Type="DBLogisticModel.TblCustomer" Role="TblCustomer" Multiplicity="0..1" />
+          <End Type="DBLogisticModel.TblOrder" Role="TblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TblCustomer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="TblOrder">
+              <PropertyRef Name="OrderCustomer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TblTestimonial">
+          <Key>
+            <PropertyRef Name="TestimonialID" />
+          </Key>
+          <Property Name="TestimonialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="TestimonialContent" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TblMessage">
+          <Key>
+            <PropertyRef Name="MessageID" />
+          </Key>
+          <Property Name="MessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MessageSender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MessageReciver" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MEssageSubject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MessageConcent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MessageDate" Type="DateTime" Precision="0" />
+          <Property Name="SenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReciverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -103,6 +281,44 @@
               <MappingFragment StoreEntitySet="TblCity">
                 <ScalarProperty Name="CityName" ColumnName="CityName" />
                 <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblOrder">
+            <EntityTypeMapping TypeName="DBLogisticModel.TblOrder">
+              <MappingFragment StoreEntitySet="TblOrder">
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+                <ScalarProperty Name="OrderSize" ColumnName="OrderSize" />
+                <ScalarProperty Name="OrderProduct" ColumnName="OrderProduct" />
+                <ScalarProperty Name="ArrivalCity" ColumnName="ArrivalCity" />
+                <ScalarProperty Name="FromCity" ColumnName="FromCity" />
+                <ScalarProperty Name="OrderCustomer" ColumnName="OrderCustomer" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblTestimonial">
+            <EntityTypeMapping TypeName="DBLogisticModel.TblTestimonial">
+              <MappingFragment StoreEntitySet="TblTestimonial">
+                <ScalarProperty Name="TestimonialContent" ColumnName="TestimonialContent" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="NameSurname" ColumnName="NameSurname" />
+                <ScalarProperty Name="TestimonialID" ColumnName="TestimonialID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TblMessage">
+            <EntityTypeMapping TypeName="DBLogisticModel.TblMessage">
+              <MappingFragment StoreEntitySet="TblMessage">
+                <ScalarProperty Name="ReciverName" ColumnName="ReciverName" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+                <ScalarProperty Name="MessageConcent" ColumnName="MessageConcent" />
+                <ScalarProperty Name="MEssageSubject" ColumnName="MEssageSubject" />
+                <ScalarProperty Name="MessageReciver" ColumnName="MessageReciver" />
+                <ScalarProperty Name="MessageSender" ColumnName="MessageSender" />
+                <ScalarProperty Name="MessageID" ColumnName="MessageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -2,7 +2,7 @@
 @model List<TblCity> 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
     int sayac = 0;
 
 }
@@ -21,11 +21,11 @@
     {
         sayac = sayac + 1;
                 <tr>
-                    <td>@sayac</td>
+                    <td>@sayac</td>  @*düzeni sağlamak için*@
                     <td>@item.CityName</td>
                     <td><a href="/City/DeleteCity/@item.CityID" class="btn btn-danger" >Sil</a></td>
                     <td><a href="/City/UpdateCity/@item.CityID" class="btn btn-success" >Güncelle</a></td>
                 </tr>
             }
 </table>
-<a href="#" class="btn btn-info">Yeni Şehir Girişi</a>
+<a href="/City/AddCity" class="btn btn-info">Yeni Şehir Girişi</a>

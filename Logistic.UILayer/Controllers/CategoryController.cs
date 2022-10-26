@@ -21,6 +21,7 @@ namespace Logistic.UILayer.Controllers
         {
             return View();
         }
+
         [HttpPost]
 
         public ActionResult AddCategory(TblCategory p)

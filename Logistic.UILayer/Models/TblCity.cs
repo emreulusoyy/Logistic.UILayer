@@ -14,7 +14,19 @@ namespace Logistic.UILayer.Models
     
     public partial class TblCity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public TblCity()
+        {
+            this.TblOrder = new HashSet<TblOrder>();
+            this.TblOrder1 = new HashSet<TblOrder>();
+        }
+    
         public int CityID { get; set; }
         public string CityName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TblOrder> TblOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TblOrder> TblOrder1 { get; set; }
     }
 }

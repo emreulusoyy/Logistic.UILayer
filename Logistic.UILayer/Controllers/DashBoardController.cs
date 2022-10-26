@@ -7,6 +7,7 @@ using Logistic.UILayer.Models;
 
 namespace Logistic.UILayer.Controllers
 {
+    [Authorize]
     public class DashBoardController : Controller
     {
         DBLogisticEntities db = new DBLogisticEntities();
